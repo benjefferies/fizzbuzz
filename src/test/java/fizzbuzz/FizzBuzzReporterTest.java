@@ -90,11 +90,12 @@ public class FizzBuzzReporterTest {
         final String report = fizzBuzzReporter.report(lower, higher);
 
         // Then
-        assertThat(report).matches(
-                "1 2 lucky 4 buzz fizz\n" +
-                "lucky: 1\n" +
-                "fizz: 1\n" +
-                "buzz: 1\n" +
-                "fizzbuzz: 0");
+        assertThat(report).isEqualTo(
+                "1 2 lucky 4 buzz fizz" + System.lineSeparator() +
+                "fizz: 1" + System.lineSeparator() +
+                "buzz: 1" + System.lineSeparator() +
+                "fizzbuzz: 0" + System.lineSeparator() +
+                "lucky: 1" + System.lineSeparator() +
+                "integer: 3");
     }
 }

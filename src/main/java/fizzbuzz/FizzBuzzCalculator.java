@@ -7,19 +7,15 @@ package fizzbuzz;
  */
 public class FizzBuzzCalculator {
 
-    static final String FIZZ = "fizz";
-    static final String BUZZ = "buzz";
-    static final String FIZZ_BUZZ = FIZZ + BUZZ;
-    static final String LUCKY = "lucky";
-
     private static final int FIZZ_DIVISOR = 3;
     private static final int BUZZ_DIVISOR = 5;
     private static final String LUCKY_NUMBER = "3";
 
     /**
-     * Evaulate {@code fizzbuzz} to establish it's Fizz Buzz value.
+     * Evaulate {@code fizzbuzz} to establish it's FizzBuzz value.
      * @param fizzBuzz number to evaluate.
-     * @return {@link #FIZZ}, {@link #BUZZ}, {@link #FIZZ_BUZZ} or the original integer.
+     * @return String values of {@link FizzBuzz#FIZZ}, {@link FizzBuzz#BUZZ}, {@link FizzBuzz#FIZZ_BUZZ} or the original
+     * integer.
      */
     public String evaluate(final int fizzBuzz) {
         final String stringFizzBuzz = String.valueOf(fizzBuzz);
@@ -28,13 +24,13 @@ public class FizzBuzzCalculator {
         final boolean isBuzz = isDivisibleBy(fizzBuzz, BUZZ_DIVISOR);
 
         if (isLucky) {
-            return LUCKY;
+            return FizzBuzz.LUCKY.toString();
         } else if (isFizz && isBuzz) {
-            return FIZZ_BUZZ;
+            return FizzBuzz.FIZZ_BUZZ.toString();
         } else if (isFizz) {
-            return FIZZ;
+            return FizzBuzz.FIZZ.toString();
         } else if (isBuzz) {
-            return BUZZ;
+            return FizzBuzz.BUZZ.toString();
         } else {
             return stringFizzBuzz;
         }
