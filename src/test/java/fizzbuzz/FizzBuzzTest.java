@@ -1,5 +1,6 @@
 package fizzbuzz;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,8 +9,13 @@ public class FizzBuzzTest {
 
     private FizzBuzzCalculator fizzBuzzCalculator;
 
+    @Before
+    public void setUp() throws Exception {
+        this.fizzBuzzCalculator = new FizzBuzzCalculator();
+    }
+
     @Test
-    public void divisibleBy15ShouldFizzBuzz() throws Exception {
+    public void divisibleBy15ShouldBeFizzBuzz() throws Exception {
         // Given
         final int fizzBuzz = 45;
 
@@ -21,7 +27,7 @@ public class FizzBuzzTest {
     }
 
     @Test
-    public void divisibleBy3ShouldFizz() throws Exception {
+    public void divisibleBy3ShouldBeFizz() throws Exception {
         // Given
         final int fizz = 3;
 
@@ -33,7 +39,7 @@ public class FizzBuzzTest {
     }
 
     @Test
-    public void divisibleBy5ShouldBuzz() throws Exception {
+    public void divisibleBy5ShouldBeBuzz() throws Exception {
         // Given
         final int buzz = 5;
 
@@ -53,7 +59,6 @@ public class FizzBuzzTest {
         final String output = fizzBuzzCalculator.evaluate(four);
 
         // Then
-        assertThat(output).isEqualTo(four);
+        assertThat(output).isEqualTo(String.valueOf(four));
     }
-
 }
