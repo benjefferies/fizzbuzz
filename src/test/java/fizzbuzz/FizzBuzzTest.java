@@ -29,7 +29,7 @@ public class FizzBuzzTest {
     @Test
     public void divisibleBy3ShouldBeFizz() throws Exception {
         // Given
-        final int fizz = 3;
+        final int fizz = 6;
 
         // When
         final String output = fizzBuzzCalculator.evaluate(fizz);
@@ -60,5 +60,18 @@ public class FizzBuzzTest {
 
         // Then
         assertThat(output).isEqualTo(String.valueOf(four));
+    }
+
+    @Test
+    public void numbersContaining3ShouldBeLucky() throws Exception {
+        // Given
+        final int lucky = 43;
+
+        // When
+        final String output = fizzBuzzCalculator.evaluate(lucky);
+
+        // Then
+        assertThat(output).isEqualTo(FizzBuzzCalculator.LUCKY);
+
     }
 }

@@ -9,6 +9,7 @@ public class FizzBuzzCalculator {
     static final String FIZZ = "fizz";
     static final String BUZZ = "buzz";
     static final String FIZZ_BUZZ = FIZZ + BUZZ;
+    static final String LUCKY = "lucky";
 
     private static final int FIZZ_DIVISOR = 3;
     private static final int BUZZ_DIVISOR = 5;
