@@ -1,66 +1,64 @@
 package fizzbuzz;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.*;
+import java.util.*;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import static fizzbuzz.FizzBuzzCalculator.*;
 
-/**
- * Produce a FizzBuzz report in the format:
- * 1 2 lucky 4 buzzfizz
- * fizz: 1
- * buzz: 1
- * fizzbuzz: 0
- * lucky: 1
- * integer: 3
- */
-public class FizzBuzzReporter {
+class FizzBuzzReporter {
 
-    private static final String SPACE = " ";
+    private static final String REPORT = "" +
+            "fizz: %d" + System.lineSeparator() +
+            "buzz: %d" + System.lineSeparator() +
+            "fizzbuzz: %d" + System.lineSeparator() +
+            "lucky: %d" + System.lineSeparator() +
+            "integer: %d";
+    private static final String INTEGER = "integer";
 
-    private final FizzBuzzCalculator fizzBuzzCalculator = new FizzBuzzCalculator();
+    private final FizzBuzzCalculator calculator;
 
-    /**
-     * Given a range of numbers produce a structured FizzBuzz report.
-     * @param lower lower number of the range which is inclusive.
-     * @param higher higher number of the range which is inclusive.
-     * @return a fizz buzz report.
-     */
-    public String report(final int lower, final int higher) {
-        Preconditions.checkArgument(lower <= higher, "lower value cannot be greater than higher");
-        final String singleLineReport = buildFizzBuzzSingleLineReport(lower, higher);
-        final String totalsReport = buildTotalsReport(singleLineReport);
-        return join(singleLineReport, totalsReport);
+    FizzBuzzReporter(final FizzBuzzCalculator calculator) {
+        this.calculator = calculator;
     }
 
-    private String buildFizzBuzzSingleLineReport(final int lower, final int higher) {
-        return IntStream.rangeClosed(lower, higher)
-                .mapToObj(fizzBuzzCalculator::evaluate)
-                .collect(Collectors.joining(SPACE));
+    String generateReportOfFizzBuzzValues(final int lower, final int higher) {
+        final StringBuilder builder = new StringBuilder();
+        for (int c = lower; c <= higher; c++) {
+            builder.append(calculator.evaluate(c)).append(" ");
+        }
+        builder.deleteCharAt(builder.length() - 1);
+        return builder.toString();
     }
 
-    private static String buildTotalsReport(final String singleLineReport) {
-        final Multimap<String, String> indexedFizzBuzzMultimap = groupFizzBuzzValuesByValue(singleLineReport);
-        final String report = Stream.of(FizzBuzz.values())
-                .map(fizzBuzz -> fizzBuzz + ": " + indexedFizzBuzzMultimap.removeAll(fizzBuzz.toString()).size())
-                .collect(Collectors.joining(System.lineSeparator()));
-
-        final String integerReport = "integer: " + indexedFizzBuzzMultimap.size();
-        return join(report, integerReport);
+    String generateReportOfTotals(final int lower, final int higher) {
+        Map<String, Integer> fizzBuzzCount = calculateTotals(lower, higher);
+        return String.format(REPORT, getCount(fizzBuzzCount, FIZZ), getCount(fizzBuzzCount, BUZZ), getCount(fizzBuzzCount, FIZZ_BUZZ),
+                getCount(fizzBuzzCount, LUCKY), getCount(fizzBuzzCount, INTEGER));
     }
 
-    private static Multimap<String, String> groupFizzBuzzValuesByValue(String singleLineReport) {
-        final String[] fizzBuzzValues = singleLineReport.split(SPACE);
-        final ImmutableListMultimap<String, String> indexedMultimap = Multimaps.index(Arrays.asList(fizzBuzzValues),
-                fizzBuzzValue -> fizzBuzzValue);
-        // Create mutable multimap
-        return ArrayListMultimap.create(indexedMultimap);
+    private Map<String, Integer> calculateTotals(int lower, int higher) {
+        final Map<String, Integer> fizzBuzzCount = new HashMap<>();
+        for (int c = lower; c <= higher; c++) {
+            final String value = calculator.evaluate(c);
+            if (isFizzBuzzType(value)) {
+                fizzBuzzCount.putIfAbsent(value, 0);
+                Integer integers = fizzBuzzCount.get(value);
+                fizzBuzzCount.put(value, ++integers);
+            } else {
+                fizzBuzzCount.putIfAbsent(INTEGER, 0);
+                Integer integers = fizzBuzzCount.get(INTEGER);
+                fizzBuzzCount.put(INTEGER, ++integers);
+            }
+        }
+        return fizzBuzzCount;
     }
 
-    private static String join(String first, String second) {
-        return first + System.lineSeparator() + second;
+    private static Integer getCount(Map<String, Integer> fizzBuzzCount, String fizz) {
+        final Integer count = fizzBuzzCount.get(fizz);
+        return count == null ? 0 : count;
     }
+
+    private static boolean isFizzBuzzType(String value) {
+        return FIZZ.equals(value) || BUZZ.equals(value) || FIZZ_BUZZ.equals(value) || LUCKY.equals(value);
+    }
+
 }

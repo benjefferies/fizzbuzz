@@ -11,7 +11,7 @@ public class FizzBuzzReporterTest {
 
     @Before
     public void setUp() throws Exception {
-        fizzBuzzReporter = new FizzBuzzReporter();
+        fizzBuzzReporter = new FizzBuzzReporter(new FizzBuzzCalculator());
     }
 
     @Test
@@ -21,7 +21,7 @@ public class FizzBuzzReporterTest {
         final int higher = 3;
 
         //When
-        final String report = fizzBuzzReporter.report(lower, higher);
+        final String report = fizzBuzzReporter.generateReportOfTotals(lower, higher);
 
         // Then
         assertThat(report).contains("lucky: 1");
@@ -34,7 +34,7 @@ public class FizzBuzzReporterTest {
         final int higher = 6;
 
         //When
-        final String report = fizzBuzzReporter.report(lower, higher);
+        final String report = fizzBuzzReporter.generateReportOfTotals(lower, higher);
 
         // Then
         assertThat(report).contains("fizz: 1");
@@ -47,7 +47,7 @@ public class FizzBuzzReporterTest {
         final int higher = 5;
 
         //When
-        final String report = fizzBuzzReporter.report(lower, higher);
+        final String report = fizzBuzzReporter.generateReportOfTotals(lower, higher);
 
         // Then
         assertThat(report).contains("buzz: 1");
@@ -60,7 +60,7 @@ public class FizzBuzzReporterTest {
         final int higher = 15;
 
         //When
-        final String report = fizzBuzzReporter.report(lower, higher);
+        final String report = fizzBuzzReporter.generateReportOfTotals(lower, higher);
 
         // Then
         assertThat(report).contains("fizzbuzz: 1");
@@ -74,7 +74,7 @@ public class FizzBuzzReporterTest {
         final int higher = 5;
 
         //When
-        final String report = fizzBuzzReporter.report(lower, higher);
+        final String report = fizzBuzzReporter.generateReportOfTotals(lower, higher);
 
         // Then
         assertThat(report).contains("integer: 3");
@@ -87,15 +87,25 @@ public class FizzBuzzReporterTest {
         final int higher = 6;
 
         //When
-        final String report = fizzBuzzReporter.report(lower, higher);
+        final String report = fizzBuzzReporter.generateReportOfTotals(lower, higher);
 
         // Then
         assertThat(report).isEqualTo(
-                "1 2 lucky 4 buzz fizz" + System.lineSeparator() +
                 "fizz: 1" + System.lineSeparator() +
                 "buzz: 1" + System.lineSeparator() +
                 "fizzbuzz: 0" + System.lineSeparator() +
                 "lucky: 1" + System.lineSeparator() +
                 "integer: 3");
+    }
+
+    @Test
+    public void shouldEvaluateRangeOfFizzBuzzValuesForReport() throws Exception {
+        // Given
+        final int lower = 1;
+        final int higher = 6;
+
+        final String report = fizzBuzzReporter.generateReportOfFizzBuzzValues(lower, higher);
+
+        assertThat(report).isEqualTo("1 2 lucky 4 buzz fizz");
     }
 }

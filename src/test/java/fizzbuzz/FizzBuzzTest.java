@@ -23,7 +23,7 @@ public class FizzBuzzTest {
         final String output = fizzBuzzCalculator.evaluate(fizzBuzz);
 
         // Then
-        assertThat(output).isEqualTo(FizzBuzz.FIZZ_BUZZ.toString());
+        assertThat(output).isEqualTo(FizzBuzzCalculator.FIZZ_BUZZ);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class FizzBuzzTest {
         final String output = fizzBuzzCalculator.evaluate(fizz);
 
         // Then
-        assertThat(output).isEqualTo(FizzBuzz.FIZZ.toString());
+        assertThat(output).isEqualTo(FizzBuzzCalculator.FIZZ);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class FizzBuzzTest {
         final String output = fizzBuzzCalculator.evaluate(buzz);
 
         // Then
-        assertThat(output).isEqualTo(FizzBuzz.BUZZ.toString());
+        assertThat(output).isEqualTo(FizzBuzzCalculator.BUZZ);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class FizzBuzzTest {
         final String output = fizzBuzzCalculator.evaluate(lucky);
 
         // Then
-        assertThat(output).isEqualTo(FizzBuzz.LUCKY.toString());
+        assertThat(output).isEqualTo(FizzBuzzCalculator.LUCKY);
 
     }
 }
