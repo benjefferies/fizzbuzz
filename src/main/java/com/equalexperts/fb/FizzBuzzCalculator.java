@@ -13,7 +13,9 @@ class FizzBuzzCalculator {
   private static String evaluate(final int fizzBuzz) {
     final String stringFizzBuzz = String.valueOf(fizzBuzz);
 
-    if (isFizz(fizzBuzz) && isBuzz(fizzBuzz)) {
+    if (isLucky(stringFizzBuzz)) {
+      return "lucky";
+    } else if (isFizz(fizzBuzz) && isBuzz(fizzBuzz)) {
       return "fizzbuzz";
     } else if (isFizz(fizzBuzz)) {
       return "fizz";
@@ -23,16 +25,20 @@ class FizzBuzzCalculator {
       return stringFizzBuzz;
     }
   }
-    private static boolean isFizz(final int fizzBuzz) {
-        return isDivisibleBy(fizzBuzz, 3);
-    }
 
-    private static boolean isBuzz(final int fizzBuzz) {
-        return isDivisibleBy(fizzBuzz, 5);
-    }
+  private static boolean isLucky(final String fizzBuzz) {
+    return fizzBuzz.contains("3");
+  }
 
-    private static boolean isDivisibleBy(final int dividend, final int divisor) {
-        return dividend % divisor == 0;
-    }
+  private static boolean isFizz(final int fizzBuzz) {
+    return isDivisibleBy(fizzBuzz, 3);
+  }
 
+  private static boolean isBuzz(final int fizzBuzz) {
+    return isDivisibleBy(fizzBuzz, 5);
+  }
+
+  private static boolean isDivisibleBy(final int dividend, final int divisor) {
+    return dividend % divisor == 0;
+  }
 }
