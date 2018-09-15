@@ -1,2 +1,4 @@
 # Ignore target directory produced by maven builds
 target
+.idea/
+*.iml
